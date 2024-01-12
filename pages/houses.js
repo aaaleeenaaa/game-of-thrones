@@ -5,6 +5,7 @@ import Link from "next/link";
 export default function Houses() {
   const [houses, setHouses] = useState([]);
   const [filteredHouses, setFilteredHouses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -12,16 +13,27 @@ export default function Houses() {
         const response = await fetch(
           "https://api.gameofthronesquotes.xyz/v1/houses"
         );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
         const data = await response.json();
         setHouses(data);
         setFilteredHouses(data);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   function handleSearch(filtered) {
     setFilteredHouses(filtered);

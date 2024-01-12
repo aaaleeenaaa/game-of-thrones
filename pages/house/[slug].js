@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function House() {
   const router = useRouter();
   const { slug } = router.query;
-  const [members, setMembers] = useState([]);
+  const [houseData, setHouseData] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -15,17 +15,10 @@ export default function House() {
             `https://api.gameofthronesquotes.xyz/v1/house/${slug}`
           );
 
-          // Check if the response status is successful (2xx)
           if (response.ok) {
             const data = await response.json();
             console.log("API Response:", data);
-
-            // Ensure that 'members' is an array before setting state
-            if (Array.isArray(data.members)) {
-              setMembers(data.members);
-            } else {
-              console.error("Invalid 'members' data:", data.members);
-            }
+            setHouseData(data[0]);
           } else {
             console.error(
               "Error in API response:",
@@ -44,21 +37,30 @@ export default function House() {
     fetchData();
   }, [slug]);
 
-  if (loading) {
-    return <div>Loading...</div>;
+  if (!slug || loading) {
+    return <p>Loading...</p>;
   }
+
+  console.log("House data", houseData);
 
   return (
     <div>
-      <h3>{slug} Members</h3>
-      {members && members.length > 0 ? (
-        <ul>
-          {members.map((member) => (
-            <li key={member.slug}>{house.member.name}</li>
-          ))}
-        </ul>
+      {houseData ? (
+        <>
+          <h3>{houseData.name}</h3>
+          <h4>Members:</h4>
+          {houseData.members && houseData.members.length > 0 ? (
+            <ul>
+              {houseData.members.map((member) => (
+                <li key={member.slug}>{member.name}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No members found</p>
+          )}
+        </>
       ) : (
-        <div>No members found</div>
+        <p>Loading...</p>
       )}
     </div>
   );
