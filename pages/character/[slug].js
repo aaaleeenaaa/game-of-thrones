@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 export default function Character() {
   const router = useRouter();
   const { slug } = router.query;
-  const [characters, setCharacters] = useState([]);
+  const [characterData, setCharacterData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,6 +19,7 @@ export default function Character() {
           if (response.ok) {
             const data = await response.json();
             console.log("API Response:", data);
+            setCharacterData(data[0]);
           } else {
             console.error(
               "Error in API response:",
@@ -42,19 +43,19 @@ export default function Character() {
   }
 
   return (
-    <>
-      <div>
-        <h3>{slug.name}</h3>
-        {characters && characters.length > 0 ? (
+    <div>
+      {characterData ? (
+        <>
+          <h3>{characterData.name}</h3>
+          <p>House: {characterData.house.name}</p>
+          <h4>Quotes:</h4>
           <ul>
-            {characters.map(({ name, slug }) => (
-              <li key={slug}>{name}</li>
+            {characterData.quotes.map((quote, index) => (
+              <li key={index}>{quote}</li>
             ))}
           </ul>
-        ) : (
-          <div>No members found</div>
-        )}
-      </div>
-    </>
+        </>
+      ) : null}
+    </div>
   );
 }
