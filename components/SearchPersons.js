@@ -1,20 +1,20 @@
 import { useState } from "react";
 
-export default function Search({ houses, onSearch }) {
+export default function SearchPersons({ persons, onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   function handleSearch() {
-    const filteredHouses = houses.filter((house) =>
-      house.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredPersons = persons.filter((person) =>
+      person.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    onSearch(filteredHouses);
+    onSearch(filteredPersons);
   }
 
   return (
     <div>
       <input
         type="text"
-        placeholder="Search houses"
+        placeholder="Search persons"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
