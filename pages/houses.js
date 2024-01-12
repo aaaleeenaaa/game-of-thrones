@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Search from "@/components/Search";
+import SearchHouses from "@/components/SearchHouses";
 import Link from "next/link";
 
 export default function Houses() {
@@ -30,7 +30,7 @@ export default function Houses() {
   return (
     <>
       <h3>Game of Thrones Houses</h3>
-      <Search houses={houses} onSearch={handleSearch} />
+      <SearchHouses houses={houses} onSearch={handleSearch} />
       <ul>
         {filteredHouses.map((house) => (
           <li key={house.id}>
