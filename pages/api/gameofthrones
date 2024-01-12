@@ -12,7 +12,8 @@ const fetcher = async (url) => {
 };
 
 export default async function handler(request, response) {
-  const url = `https://gameofthronesquotes.xyz/`;
+  const { house } = request.query;
+  const url = `https://gameofthronesquotes.xyz/v1/`;
 
   try {
     const data = await fetcher(url);
