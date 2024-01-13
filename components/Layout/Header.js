@@ -10,7 +10,6 @@ const StyledHeader = styled.header`
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
   max-width: 100%;
   background-color: #adc9c9;
@@ -31,11 +30,11 @@ export default function Header() {
   return (
     <StyledHeader>
       <StyledHeaderLink href="/">
-        Game{" "}
+        Game
         <StyledIcon>
           <IoLogoGameControllerB />
         </StyledIcon>
-        of Thrones{" "}
+        of Thrones
         <StyledIcon>
           <GiStoneThrone />
         </StyledIcon>

@@ -6,7 +6,7 @@ import ListElement, { List } from "@/components/List";
 import styled from "styled-components";
 
 const StyledHousePageButton = styled.button`
-  width: 10%;
+  width: 6rem;
   margin: 0 auto 0.5rem;
 `;
 

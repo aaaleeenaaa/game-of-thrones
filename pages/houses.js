@@ -52,7 +52,7 @@ export default function Houses() {
       />
       <List>
         {filteredHouses.map((house) => (
-          <ListElement key={house.id}>
+          <ListElement key={house.name}>
             <Link href={`/house/${house.slug}`}>{house.name}</Link>
           </ListElement>
         ))}

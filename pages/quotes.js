@@ -5,7 +5,7 @@ import ListElement, { List } from "@/components/List";
 import styled from "styled-components";
 
 const StyledQuotesButton = styled.button`
-  width: 15%;
+  width: 8rem;
   margin: 0 auto 0.5rem;
 `;
 

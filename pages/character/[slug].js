@@ -6,7 +6,7 @@ import ListElement, { List } from "@/components/List";
 import styled from "styled-components";
 
 const StyledCharacterPageButton = styled.button`
-  width: 15%;
+  width: 8rem;
   margin: 0 auto 0.5rem;
 `;
 
@@ -27,7 +27,6 @@ export default function Character() {
 
           if (response.ok) {
             const data = await response.json();
-            console.log("API Response:", data);
             setCharacterData(data[0]);
             setCurrentQuotes(data[0].quotes);
           } else {
@@ -83,7 +82,7 @@ export default function Character() {
             ))}
           </List>
           <StyledCharacterPageButton onClick={handleShuffleQuotes}>
-            Replace Quotes
+            Shuffle Quotes
           </StyledCharacterPageButton>
         </>
       ) : null}
