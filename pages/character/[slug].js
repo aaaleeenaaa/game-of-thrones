@@ -48,7 +48,7 @@ export default function Character() {
     fetchData();
   }, [slug]);
 
-  const handleReplaceQuotes = async () => {
+  const handleShuffleQuotes = async () => {
     const shuffledQuotes = [...currentQuotes].sort(() => Math.random() - 0.5);
     setCurrentQuotes(shuffledQuotes);
   };
@@ -82,7 +82,7 @@ export default function Character() {
               <ListElement key={index}>{quote}</ListElement>
             ))}
           </List>
-          <StyledCharacterPageButton onClick={handleReplaceQuotes}>
+          <StyledCharacterPageButton onClick={handleShuffleQuotes}>
             Replace Quotes
           </StyledCharacterPageButton>
         </>
