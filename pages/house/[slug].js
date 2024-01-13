@@ -1,5 +1,14 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import Card from "@/components/Card";
+import Link from "next/link";
+import ListElement, { List } from "@/components/List";
+import styled from "styled-components";
+
+const StyledHousePageButton = styled.button`
+  width: 10%;
+  margin: 0 auto 0.5rem;
+`;
 
 export default function House() {
   const router = useRouter();
@@ -17,7 +26,6 @@ export default function House() {
 
           if (response.ok) {
             const data = await response.json();
-            console.log("API Response:", data);
             setHouseData(data[0]);
           } else {
             console.error(
@@ -41,20 +49,24 @@ export default function House() {
     return <p>Loading...</p>;
   }
 
-  console.log("House data", houseData);
+  function handleButtonClick() {
+    router.push("/houses");
+  }
 
   return (
-    <div>
+    <Card>
       {houseData ? (
         <>
           <h3>{houseData.name}</h3>
           <h4>Members:</h4>
           {houseData.members && houseData.members.length > 0 ? (
-            <ul>
+            <List>
               {houseData.members.map((member) => (
-                <li key={member.slug}>{member.name}</li>
+                <ListElement key={member.slug}>
+                  <Link href={`/character/${member.slug}`}>{member.name}</Link>
+                </ListElement>
               ))}
-            </ul>
+            </List>
           ) : (
             <p>No members found</p>
           )}
@@ -62,6 +74,9 @@ export default function House() {
       ) : (
         <p>Loading...</p>
       )}
-    </div>
+      <StyledHousePageButton onClick={handleButtonClick}>
+        All houses
+      </StyledHousePageButton>
+    </Card>
   );
 }

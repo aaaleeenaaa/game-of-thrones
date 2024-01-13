@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import useLocalStorageState from "use-local-storage-state";
+import { useEffect } from "react";
 
 const StyledNavbar = styled.nav`
   width: 100%;
@@ -9,6 +11,9 @@ const StyledNavbar = styled.nav`
   justify-content: space-around;
   align-items: center;
   height: 3.2rem;
+  padding: 1rem 0;
+  background-color: #c7eded;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
 const StyledNavSection = styled.section`
@@ -16,55 +21,51 @@ const StyledNavSection = styled.section`
   ${(props) =>
     props.isActive &&
     css`
-      background-color: var(--activeBackground);
-      border-radius: 10%;
       font-size: 2rem;
     `}
 `;
 
 export default function Navigation() {
+  const router = useRouter();
   const [activeItem, setActiveItem] = useLocalStorageState("activeItem", {
     defaultValue: "home",
   });
 
-  function handleClick(item) {
-    setActiveItem(item);
-  }
+  useEffect(() => {
+    const path = router.pathname;
+    if (path === "/") {
+      setActiveItem("home");
+    } else if (path === "/houses") {
+      setActiveItem("houses");
+    } else if (path === "/persons") {
+      setActiveItem("persons");
+    } else if (path === "/quotes") {
+      setActiveItem("quotes");
+    }
+  }, [router.pathname, setActiveItem]);
 
   return (
     <StyledNavbar>
       <Link href="/">
-        <StyledNavSection
-          isActive={activeItem === "home"}
-          onClick={() => handleClick("home")}
-        >
+        <StyledNavSection isActive={activeItem === "home"}>
           Home
         </StyledNavSection>
       </Link>
 
       <Link href="/houses">
-        <StyledNavSection
-          isActive={activeItem === "houses"}
-          onClick={() => handleClick("houses")}
-        >
+        <StyledNavSection isActive={activeItem === "houses"}>
           Houses
         </StyledNavSection>
       </Link>
 
       <Link href="/persons">
-        <StyledNavSection
-          isActive={activeItem === "persons"}
-          onClick={() => handleClick("persons")}
-        >
+        <StyledNavSection isActive={activeItem === "persons"}>
           Persons
         </StyledNavSection>
       </Link>
 
       <Link href="/quotes">
-        <StyledNavSection
-          isActive={activeItem === "quotes"}
-          onClick={() => handleClick("quotes")}
-        >
+        <StyledNavSection isActive={activeItem === "quotes"}>
           Quotes
         </StyledNavSection>
       </Link>
