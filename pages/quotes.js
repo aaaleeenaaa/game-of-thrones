@@ -1,4 +1,13 @@
 import React, { useState, useEffect } from "react";
+import Card from "@/components/Card";
+import Link from "next/link";
+import ListElement, { List } from "@/components/List";
+import styled from "styled-components";
+
+const StyledQuotesButton = styled.button`
+  width: 15%;
+  margin: 0 auto 0.5rem;
+`;
 
 export default function Quotes() {
   const [quotes, setQuotes] = useState([]);
@@ -20,14 +29,21 @@ export default function Quotes() {
   }, []);
 
   return (
-    <>
+    <Card>
       <h3>Game of Thrones Quotes</h3>
-      <ul>
+      <List>
         {quotes.map((quote) => (
-          <li key={quote.sentence}>{quote.sentence}</li>
+          <ListElement key={quote.sentence}>
+            {quote.sentence} -{" "}
+            <Link href={`/character/${quote.character.slug}`}>
+              {quote.character.name}
+            </Link>
+          </ListElement>
         ))}
-      </ul>
-      <button onClick={fetchNewQuotes}>Get New Quotes</button>
-    </>
+      </List>
+      <StyledQuotesButton onClick={fetchNewQuotes}>
+        Get New Quotes
+      </StyledQuotesButton>
+    </Card>
   );
 }

@@ -1,6 +1,8 @@
-import SearchPersons from "@/components/SearchPersons";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Card from "@/components/Card";
+import Search from "@/components/Search";
+import ListElement, { List } from "@/components/List";
 
 export default function Persons() {
   const [persons, setPersons] = useState([]);
@@ -23,23 +25,29 @@ export default function Persons() {
     fetchData();
   }, []);
 
-  function handleSearch(filtered) {
+  function handlePersonsSearch(filtered) {
     setFilteredPersons(filtered);
   }
 
   return (
-    <>
+    <Card>
       <h3>Game of Thrones Persons</h3>
-      <SearchPersons persons={persons} onSearch={handleSearch} />
-      <ul>
+      <Search
+        data={persons}
+        onSearch={handlePersonsSearch}
+        placeholder="persons"
+        propertyName="name"
+      />
+      <List>
         {filteredPersons.map((character) => (
-          <li key={character.id}>
+          <ListElement key={character.id}>
             <Link href={`/character/${character.slug}`}>
-              {character.name} - {character.house && character.house.name}
+              {character.name} -{" "}
+              {character.house ? character.house.name : "No House"}
             </Link>
-          </li>
+          </ListElement>
         ))}
-      </ul>
-    </>
+      </List>
+    </Card>
   );
 }

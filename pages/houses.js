@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import SearchHouses from "@/components/SearchHouses";
 import Link from "next/link";
+import Card from "@/components/Card";
+import Search from "@/components/Search";
+import ListElement, { List } from "@/components/List";
 
 export default function Houses() {
   const [houses, setHouses] = useState([]);
@@ -35,21 +37,26 @@ export default function Houses() {
     return <p>Loading...</p>;
   }
 
-  function handleSearch(filtered) {
+  function handleHousesSearch(filtered) {
     setFilteredHouses(filtered);
   }
 
   return (
-    <>
+    <Card>
       <h3>Game of Thrones Houses</h3>
-      <SearchHouses houses={houses} onSearch={handleSearch} />
-      <ul>
+      <Search
+        data={houses}
+        onSearch={handleHousesSearch}
+        placeholder="houses"
+        propertyName="name"
+      />
+      <List>
         {filteredHouses.map((house) => (
-          <li key={house.id}>
+          <ListElement key={house.id}>
             <Link href={`/house/${house.slug}`}>{house.name}</Link>
-          </li>
+          </ListElement>
         ))}
-      </ul>
-    </>
+      </List>
+    </Card>
   );
 }
