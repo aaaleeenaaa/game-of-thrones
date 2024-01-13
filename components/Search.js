@@ -2,12 +2,12 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const StyledSearchButton = styled.button`
-  width: 5%;
+  width: 5rem;
   margin: 0 auto 0.5rem;
 `;
 
 const StyledInput = styled.input`
-width 20%;
+width 12rem;
 margin: 0 auto 0.5rem; 
 `;
 
@@ -19,6 +19,7 @@ export default function Search({ data, onSearch, placeholder, propertyName }) {
       item[propertyName].toLowerCase().includes(searchTerm.toLowerCase())
     );
     onSearch(filteredData);
+    setSearchTerm("");
   }
 
   return (

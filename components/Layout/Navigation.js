@@ -13,11 +13,9 @@ const StyledNavbar = styled.nav`
   height: 3.2rem;
   padding: 1rem 0;
   background-color: #c7eded;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
 const StyledNavSection = styled.section`
-  background-color: transparent;
   ${(props) =>
     props.isActive &&
     css`
